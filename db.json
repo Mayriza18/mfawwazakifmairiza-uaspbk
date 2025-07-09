@@ -61,6 +61,19 @@
       "denda_per_hari": 50000,
       "denda_total": 0,
       "selesai": true
+    },
+    {
+      "id": "0d02",
+      "nama_penyewa": "pawas",
+      "mobil_id": "1",
+      "tanggal_mulai": "2025-07-09",
+      "durasi_hari": 1,
+      "tanggal_kembali": "2025-07-10",
+      "tanggal_dikembalikan": "2025-07-09",
+      "total_harga": 350000,
+      "denda_per_hari": 50000,
+      "denda_total": 0,
+      "selesai": true
     }
   ]
 }

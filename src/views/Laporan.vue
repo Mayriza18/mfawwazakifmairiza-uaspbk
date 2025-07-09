@@ -72,7 +72,7 @@ onMounted(() => {
   mobilStore.fetchMobil()
 })
 
-const transaksiSelesai = computed(() => transaksiStore.transaksiSelesai)
+const transaksiSelesai = computed(() => transaksiStore.transaksiSelesai.reverse())
 const transaksiAktif = computed(() => transaksiStore.transaksiAktif)
 const mobilTersedia = computed(() => mobilStore.mobilTersedia)
 
