@@ -1,57 +1,81 @@
 <template>
-  <div class="p-6 max-w-5xl mx-auto">
-    <h1 class="text-2xl font-bold mb-6">Pilih Mobil untuk Disewa</h1>
+  <div class="p-6 max-w-5xl mx-auto  min-h-screen">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">🚗 Pilih Mobil untuk Disewa</h1>
 
     <!-- List mobil tersedia -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       <div
         v-for="mobil in mobilStore.mobilTersedia"
         :key="mobil.id"
-        class="bg-white p-4 shadow rounded cursor-pointer hover:shadow-lg transition"
+        class="bg-white p-5 rounded-lg shadow hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200 cursor-pointer"
         @click="pilihMobil(mobil)"
       >
-        <h2 class="text-lg font-semibold mb-1">{{ mobil.nama }}</h2>
-        <p class="text-gray-600 text-sm mb-1">Plat: {{ mobil.plat_nomor }}</p>
-        <p class="text-gray-700 font-medium">Rp{{ mobil.harga_per_hari.toLocaleString() }}/hari</p>
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ mobil.nama }}</h2>
+        <p class="text-sm text-gray-500 mb-1">Plat: {{ mobil.plat_nomor }}</p>
+        <p class="text-lg text-amber-600 font-bold">Rp{{ mobil.harga_per_hari.toLocaleString() }}/hari</p>
       </div>
     </div>
 
-    <!-- Form transaksi (muncul setelah memilih mobil) -->
-    <div v-if="mobilDipilih" class="mt-10 bg-white p-6 shadow-md rounded">
-      <h2 class="text-xl font-bold mb-4">Form Transaksi</h2>
+    <!-- Form transaksi -->
+    <div
+      v-if="mobilDipilih"
+      class="mt-10 bg-white p-8 shadow-lg rounded-lg border border-gray-200 transition-all"
+    >
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">📝 Form Transaksi</h2>
 
-      <p class="mb-4">
-        <span class="font-semibold">Mobil:</span> {{ mobilDipilih.nama }}<br />
-        <span class="font-semibold">Harga per Hari:</span> Rp{{ mobilDipilih.harga_per_hari.toLocaleString() }}
-      </p>
+      <div class="mb-6 text-gray-700 space-y-1">
+        <p><span class="font-semibold">Mobil:</span> {{ mobilDipilih.nama }}</p>
+        <p><span class="font-semibold">Harga per Hari:</span> Rp{{ mobilDipilih.harga_per_hari.toLocaleString() }}</p>
+      </div>
 
-      <form @submit.prevent="buatTransaksi" class="space-y-4">
+      <form @submit.prevent="buatTransaksi" class="space-y-5">
         <div>
-          <label class="block font-medium mb-1">Nama Penyewa</label>
-          <input v-model="form.nama_penyewa" type="text" class="w-full input" required />
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nama Penyewa</label>
+          <input
+            v-model="form.nama_penyewa"
+            type="text"
+            placeholder="Masukkan nama penyewa"
+            class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
+            required
+          />
         </div>
 
         <div>
-          <label class="block font-medium mb-1">Durasi (hari)</label>
-          <input v-model.number="form.durasi_hari" type="number" min="1" class="w-full input" required />
+          <label class="block text-sm font-medium text-gray-700 mb-1">Durasi (hari)</label>
+          <input
+            v-model.number="form.durasi_hari"
+            type="number"
+            min="1"
+            class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
+            required
+          />
         </div>
 
-        <div class="text-gray-800 text-lg font-semibold">
-          Total Harga: Rp{{ totalHarga.toLocaleString() }}
+        <div class="text-lg font-semibold text-gray-800">
+          Total Harga: <span class="text-amber-600">Rp{{ totalHarga.toLocaleString() }}</span>
         </div>
 
-        <div class="flex gap-4">
-          <button type="submit" class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 transition">
-            Simpan Transaksi
+        <div class="flex gap-4 pt-2">
+          <button
+            type="submit"
+            class="bg-amber-500 hover:bg-amber-600 text-white px-5 py-2 rounded-md shadow transition-all duration-200"
+          >
+            💾 Simpan Transaksi
           </button>
-          <button @click="mobilDipilih = null" type="button" class="text-gray-500 hover:text-red-500">
-            Batal
+          <button
+            @click="mobilDipilih = null"
+            type="button"
+            class="px-5 py-2 text-gray-600 border border-gray-300 rounded-md hover:text-red-500 hover:border-red-400 transition"
+          >
+            ❌ Batal
           </button>
         </div>
       </form>
     </div>
   </div>
 </template>
+
+
 
 <script setup>
 import { ref, computed } from 'vue'
